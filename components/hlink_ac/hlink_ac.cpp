@@ -608,6 +608,12 @@ void HlinkAc::control(const esphome::climate::ClimateCall &call) {
       case climate::ClimateSwingMode::CLIMATE_SWING_VERTICAL:
         h_link_swing_mode = HLINK_SWING_VERTICAL;
         break;
+      case climate::ClimateSwingMode::CLIMATE_SWING_HORIZONTAL:
+        h_link_swing_mode = HLINK_SWING_HORIZONTAL;
+        break;
+      case climate::ClimateSwingMode::CLIMATE_SWING_BOTH:
+        h_link_swing_mode = HLINK_SWING_BOTH;
+        break;
     }
     this->pending_action_requests.enqueue(this->create_request_(
         HlinkRequestFrame::with_uint8(HlinkRequestFrame::Type::ST, FeatureType::SWING_MODE, h_link_swing_mode),
