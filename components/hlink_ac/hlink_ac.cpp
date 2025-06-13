@@ -88,6 +88,10 @@ HlinkAc::HlinkAc() {
            this->hlink_entity_status_.swing_mode = esphome::climate::ClimateSwingMode::CLIMATE_SWING_OFF;
          } else if (response.p_value_as_uint16() == HLINK_SWING_VERTICAL) {
            this->hlink_entity_status_.swing_mode = esphome::climate::ClimateSwingMode::CLIMATE_SWING_VERTICAL;
+         } else if (response.p_value_as_uint16() == HLINK_SWING_HORIZONTAL) {
+           this->hlink_entity_status_.swing_mode = esphome::climate::ClimateSwingMode::CLIMATE_SWING_HORIZONTAL;
+         } else if (response.p_value_as_uint16() == HLINK_SWING_BOTH) {
+           this->hlink_entity_status_.swing_mode = esphome::climate::ClimateSwingMode::CLIMATE_SWING_BOTH;
          }
        }});
   this->status_.polling_features.push_back(
