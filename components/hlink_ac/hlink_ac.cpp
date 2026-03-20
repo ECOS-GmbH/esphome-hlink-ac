@@ -37,13 +37,13 @@ HlinkAc::HlinkAc() {
          } else if (this->hlink_entity_status_.hlink_climate_mode == HLINK_MODE_FAN) {
            this->hlink_entity_status_.mode = esphome::climate::ClimateMode::CLIMATE_MODE_FAN_ONLY;
          } else if (this->hlink_entity_status_.hlink_climate_mode == HLINK_MODE_HEAT_AUTO) {
-           this->hlink_entity_status_.mode = esphome::climate::ClimateMode::CLIMATE_MODE_HEAT_COOL;
+           this->hlink_entity_status_.mode = esphome::climate::ClimateMode::CLIMATE_MODE_AUTO;
          } else if (this->hlink_entity_status_.hlink_climate_mode == HLINK_MODE_COOL_AUTO) {
-           this->hlink_entity_status_.mode = esphome::climate::ClimateMode::CLIMATE_MODE_HEAT_COOL;
+           this->hlink_entity_status_.mode = esphome::climate::ClimateMode::CLIMATE_MODE_AUTO;
          } else if (this->hlink_entity_status_.hlink_climate_mode == HLINK_MODE_DRY_AUTO) {
-           this->hlink_entity_status_.mode = esphome::climate::ClimateMode::CLIMATE_MODE_HEAT_COOL;
+           this->hlink_entity_status_.mode = esphome::climate::ClimateMode::CLIMATE_MODE_AUTO;
          } else if (this->hlink_entity_status_.hlink_climate_mode == HLINK_MODE_AUTO) {
-           this->hlink_entity_status_.mode = esphome::climate::ClimateMode::CLIMATE_MODE_HEAT_COOL;
+           this->hlink_entity_status_.mode = esphome::climate::ClimateMode::CLIMATE_MODE_AUTO;
          }
        }});
   this->status_.polling_features.push_back(
@@ -659,7 +659,7 @@ void HlinkAc::control(const esphome::climate::ClimateCall &call) {
       case climate::ClimateMode::CLIMATE_MODE_FAN_ONLY:
         h_link_mode = HLINK_MODE_FAN;
         break;
-      case climate::ClimateMode::CLIMATE_MODE_HEAT_COOL:
+      case climate::ClimateMode::CLIMATE_MODE_AUTO:
         h_link_mode = HLINK_MODE_AUTO;
         break;
       default:
@@ -676,7 +676,7 @@ void HlinkAc::control(const esphome::climate::ClimateCall &call) {
                              this->publish_state();
                            });
 #ifdef USE_NUMBER
-    if (mode == climate::ClimateMode::CLIMATE_MODE_HEAT_COOL && this->temperature_offset_number_ != nullptr) {
+    if (mode == climate::ClimateMode::CLIMATE_MODE_AUTO && this->temperature_offset_number_ != nullptr) {
       // Apply target auto offset value if the mode is set to AUTO
       uint16_t offset_temp = this->hlink_entity_status_.hlink_auto_offset_temperature();
       this->enqueue_request_(
